@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="../img/logo/attnlg.jpg" rel="icon">
+    <title>Biometric Attendance</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'vendor/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'vendor/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/ruang-admin.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/1.css')}}">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-light accordion " id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center bg-gradient-primary  justify-content-center"
+                href="{{url_for('admin')}}">
+                <div class="sidebar-brand-icon">
+                    <img src="{{url_for('static', filename = 'img/logo/attnlg.jpg')}}">
+                </div>
+                <div class="sidebar-brand-text mx-3">AMS</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{url_for('home')}}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap2"
+                    aria-expanded="true" aria-controls="collapseBootstrap2">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Manage Students</span>
+                </a>
+                <div id="collapseBootstrap2" class="collapse" aria-labelledby="headingBootstrap"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{url_for('searchStudent')}}">Search Student</a>
+                        <a class="collapse-item" href="{{url_for('edit_attendance')}}">Edit Attendance</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!-- Sidebar -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <!-- TopBar -->
+                <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 static-top">
+                    <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <div class="text-white big" style="margin-left:100px;"><b></b></div>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-1 small"
+                                            placeholder="What do you want to look for?" aria-label="Search"
+                                            aria-describedby="basic-addon2" style="border-color: #3f51b5;">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-profile rounded-circle"
+                                    src="{{url_for('static', filename = 'img/user-icn.png')}}" style="max-width: 60px">
+                                <span class="ml-2 d-none d-lg-inline text-white small"><b>Welcome Teacher</b></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{url_for('logout')}}">
+                                    <i class="fas fa-power-off fa-fw mr-2 text-danger"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Topbar -->
+
+                <!-- Container Fluid-->
+                <div class="container-fluid" id="container-wrapper">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4" style="">
+                        <h1 class="h3 mb-0 text-gray-800">Edit Attendance</h1>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{url_for('logout')}}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Attendance</li>
+                        </ol>
+                    </div>
+                    <h2 class="h4 mb-0 text-gray-800" style="position: relative; bottom: 20px; left: 2px;">Class {{clas}}</h2>
+
+                    <!-- Input Group -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Attendance on {{tdate}}</h6>
+                                </div>
+                                <div class="table-responsive p-3">
+                                    <form method="post">
+                                        <table class="table align-items-center table-flush table-hover"
+                                            id="dataTableHover">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Enrollment</th>
+                                                    <th>Name</th>
+                                                    <th>Attendance</th>
+                                                    <!-- <th>Absent</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i in range(0, l) %}
+                                                <tr>
+                                                    <td>{{student_data[i]["enroll"]}}</td>
+                                                    <td>{{student_data[i]["name"]}}</td>
+                                                    <!-- <td><input type="radio" name="status{{i}}" class="check present_check" value="1"></td> -->
+                                                    <td>
+                                                        <label class="switch">
+                                                            <input type="checkbox" name="status{{student_data[i]['enroll']}}"
+                                                                class="attendance">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                    <!-- <td><input type="radio" name="status{{i}}" value= '0' 
+                                                            class="check absent_check"></td> -->
+
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <div style="margin-top: 20px;">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---Container Fluid-->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <script src="{{url_for('static', filename = 'vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'vendor/chart.js/Chart.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/ruang-admin.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/demo/chart-area-demo.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/1.js')}}"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#dataTable').DataTable(); // ID From dataTable 
+            $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+        });
+
+
+        let dataObj = {};
+        var x = 0;
+        let data = [];
+        var temp;
+        {% for i in range(0, l) %}
+        temp = `{{student_data[i]["status"]}}`;
+        temp = parseInt(temp);
+        if (temp == 1) {
+            data.push(true);
+        }
+        else {
+            data.push(false);
+        }
+        {% endfor %}
+
+        for (var i = 0; i < data.length; i++) {
+            document.getElementsByClassName('attendance')[i].checked = data[i];
+        }
+
+    </script>
+</body>
+
+</html>

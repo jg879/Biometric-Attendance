@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="img/logo/attnlg.jpg" rel="icon">
+  <title>Biometric Attendance</title>
+
+  <link rel="stylesheet" href="{{url_for('static', filename = 'vendor/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename = 'vendor/bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename = 'css/ruang-admin.min.css')}}">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-light accordion " id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center bg-gradient-primary  justify-content-center" href="{{url_for('admin')}}">
+        <div class="sidebar-brand-icon" >
+          <img src="{{url_for('static', filename = 'img/logo/attnlg.jpg')}}">
+        </div>
+        <div class="sidebar-brand-text mx-3">AMS</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url_for('home')}}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+      <hr class="sidebar-divider">
+      </li>
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap2"
+          aria-expanded="true" aria-controls="collapseBootstrap2">
+          <i class="fas fa-user-graduate"></i>
+          <span>Manage Students</span>
+        </a>
+        <div id="collapseBootstrap2" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{url_for('searchStudent')}}">Search Student</a>
+            <a class="collapse-item" href="{{url_for('edit_attendance')}}">Edit Attendance</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!-- Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- TopBar -->
+        <nav class="navbar navbar-expand navbar-light bg-gradient-primary topbar mb-4 static-top">
+          <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+        <div class="text-white big" style="margin-left:100px;"><b></b></div>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown">
+                <form class="navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
+                      aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+         
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <img class="img-profile rounded-circle" src="{{url_for('static', filename = 'img/user-icn.png')}}" style="max-width: 60px">
+                <span class="ml-2 d-none d-lg-inline text-white small"><b>Welcome Teacher</b></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{url_for('logout')}}">
+                  <i class="fas fa-power-off fa-fw mr-2 text-danger"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <!-- Topbar -->
+        <!-- Container Fluid-->
+        <div class="container-fluid" id="container-wrapper">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Teacher Dashboard</h1>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{url_for('logout')}}">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+          </div>
+
+          <div class="row mb-3">
+            <!-- Students Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Students</div>
+                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{students}}</div>
+                      <div class="mt-2 mb-0 text-muted text-xs">
+                        <!-- <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
+                        <span>Since last month</span> -->
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-users fa-2x text-info"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Teachers Card  -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Biometric Attendance</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <a href="{{url_for('take_attendance')}}" class="btn btn-primary">Take Attendance</a>
+                      </div>
+                      <div class="mt-2 mb-0 text-muted text-xs">
+                        <!-- <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                                    <span>Since last years</span> -->
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-chalkboard-teacher fa-2x text-danger"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <script src="{{url_for('static', filename = 'vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'vendor/chart.js/Chart.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/ruang-admin.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/demo/chart-area-demo.js')}}"></script>
+</body>
+
+</html>
